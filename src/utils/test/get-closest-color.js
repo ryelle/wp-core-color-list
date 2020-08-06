@@ -13,9 +13,9 @@ test( 'Invalid values should return false.', () => {
 
 test( 'Custom color lists work.', () => {
 	const colors = {
-		'red': '#f00',
-		'green': '#0f0',
-		'blue': '#00f',
+		red: '#f00',
+		green: '#0f0',
+		blue: '#00f',
 	};
 	expect( getClosestColor( '#e00', colors ) ).toBe( '#f00' );
 	expect( getClosestColor( '#a10', colors ) ).toBe( '#f00' );
@@ -29,21 +29,29 @@ test( 'Matching values should return the exact color.', () => {
 	expect( getClosestColor( '#008ec2' ) ).toBe( '#008ec2' );
 } );
 
+test( 'Red correctly returns a red color.', () => {
+	const colors = {
+		red: '#dc3232',
+		black: '#191e23',
+	};
+	expect( getClosestColor( 'rgb(230, 1, 34)', colors ) ).toBe( '#dc3232' );
+} );
+
 test( 'Hex values match with or without the #.', () => {
 	expect( getClosestColor( '#e8eaeb' ) ).toBe( '#e8eaeb' );
 	expect( getClosestColor( 'e8eaeb' ) ).toBe( '#e8eaeb' );
 } );
 
 test( 'Nearby values should return the correct color.', () => {
-	expect( getClosestColor( '#103369' ) ).toBe( '#4e426c' );
-	expect( getClosestColor( '#97d936' ) ).toBe( '#90d296' );
+	expect( getClosestColor( '#103369' ) ).toBe( '#32373c' );
+	expect( getClosestColor( '#97d936' ) ).toBe( '#6bc373' );
 	expect( getClosestColor( '#9995cb' ) ).toBe( '#9b8bc3' );
-	expect( getClosestColor( '#511a29' ) ).toBe( '#23282d' );
+	expect( getClosestColor( '#511a29' ) ).toBe( '#32373c' );
 } );
 
 test( 'RGB values work.', () => {
 	expect( getClosestColor( 'rgb(218, 242, 252)' ) ).toBe( '#e6f6fb' );
-	expect( getClosestColor( 'rgb(54, 240, 251)' ) ).toBe( '#33b3db' );
+	expect( getClosestColor( 'rgb(54, 240, 251)' ) ).toBe( '#66c6e4' );
 } );
 
 test( 'RGBA values work.', () => {

@@ -6,12 +6,20 @@ export default function getClosestColor( hex, colorList = colors ) {
 	if ( ! color || ! color.isValid() ) {
 		return false;
 	}
-	const { r, g, b } = color.toRgb();
-	let lowestDiff = 766; // Technically, diff can't be larger than 765.
+	const { r, g, b } = color.toRgb(); // @todo handle transparent colors?
+	const { h, s } = color.toHsl();
+	let lowestDiff = 9999999;
 	let matchedColor = '';
 	Object.values( colorList ).forEach( ( value ) => {
-		const { r: r2, g: g2, b: b2 } = tinycolor( value ).toRgb();
-		const diff = Math.abs( r2 - r ) + Math.abs( g2 - g ) + Math.abs( b2 - b );
+		const valueColor = tinycolor( value );
+		const { r: r2, g: g2, b: b2 } = valueColor.toRgb();
+		const { h: h2, s: s2 } = valueColor.toHsl();
+		// See https://en.wikipedia.org/wiki/Color_difference
+		const diff = Math.sqrt(
+			Math.pow( r2 - r, 2 ) +
+				Math.pow( g2 - g, 2 ) +
+				Math.pow( b2 - b, 2 )
+		);
 		if ( diff < lowestDiff ) {
 			lowestDiff = diff;
 			matchedColor = value;
