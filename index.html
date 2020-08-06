@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>WordPress Core Color Map</title>
+		<link rel="stylesheet" href="/build/style-index.css">
+	</head>
+	<body>
+		<h1>WordPress Core color groupings</h1>
+		<div>
+			<p>These colors were pulled from WordPress using <a href="https://github.com/ryelle/css-audit">the css-audit tool,</a> and pulling out the list of all colors.</p>
+			<pre>yarn run css-audit --colors wordpress-trunk/src/(wp-admin|wp-includes)/**/*.css --format=json</pre>
+		</div>
+
+		<div id="container"></div>
+		<script src="/build/index.js" charset="utf-8"></script>
+	</body>
+</html>

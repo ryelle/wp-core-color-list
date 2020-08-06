@@ -1,0 +1,29 @@
+{
+  "name": "consolidate-color",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "wp-scripts start",
+    "build": "wp-scripts build",
+    "format:js": "wp-scripts format-js",
+    "lint:js": "wp-scripts lint-js",
+    "packages-update": "wp-scripts packages-update",
+    "test:unit": "wp-scripts test-unit-js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@wordpress/scripts": "^12.1.1"
+  },
+  "dependencies": {
+    "tinycolor2": "^1.4.1"
+  },
+  "eslintConfig": {
+    "extends": "plugin:@wordpress/eslint-plugin/recommended",
+    "root": true,
+    "rules": {
+      "no-console": "off"
+    }
+  }
+}
