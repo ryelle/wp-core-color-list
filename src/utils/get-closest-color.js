@@ -4,12 +4,32 @@
 import convert from 'color-convert';
 import tinycolor from 'tinycolor2';
 
-export default function getClosestColor( hex, colorList = {} ) {
+/**
+ * Given a color and a list, get the closest color. If withDiff is provided,
+ * also return the difference value.
+ *
+ * @param {string} hex       The color, usually as a hex code (or rgb string).
+ * @param {Object} colorList A list of colors, with the name as the key, and
+ *                           color value as the value.
+ * @param {boolean} withDiff If the return value should be just the color (false),
+ *                           or an array-pair with the diff value (true).
+ */
+export default function getClosestColor(
+	hex,
+	colorList = {},
+	withDiff = false
+) {
 	if ( ! Object.values( colorList ).length ) {
+		if ( withDiff ) {
+			return [ false, 0 ];
+		}
 		return false;
 	}
 	const color = tinycolor( hex );
 	if ( ! color || ! color.isValid() ) {
+		if ( withDiff ) {
+			return [ false, 0 ];
+		}
 		return false;
 	}
 	const { r, g, b } = color.toRgb(); // @todo handle transparent colors?
@@ -33,5 +53,8 @@ export default function getClosestColor( hex, colorList = {} ) {
 		}
 	} );
 
+	if ( withDiff ) {
+		return [ matchedColor, lowestDiff ];
+	}
 	return matchedColor;
 }
