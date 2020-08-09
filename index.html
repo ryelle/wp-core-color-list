@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 	<head>
-		<meta charset="utf-8">
+		<meta charset="utf-8" />
 		<title>WordPress Core Color Map</title>
-		<link rel="stylesheet" href="/build/style-index.css">
-		<script src="https://drafts.csswg.org/css-color-4/multiply-matrices.js" charset="utf-8"></script>
-		<script src="https://drafts.csswg.org/css-color-4/conversions.js" charset="utf-8"></script>
-		<script src="https://drafts.csswg.org/css-color-4/utilities.js" charset="utf-8"></script>
+		<link rel="stylesheet" href="/build/style-index.css" />
 	</head>
 	<body>
 		<h1>WordPress Core color groupings</h1>
 		<div>
-			<p>These colors were pulled from WordPress using <a href="https://github.com/ryelle/css-audit">the css-audit tool,</a> and pulling out the list of all colors.</p>
-			<pre>yarn run css-audit --colors wordpress-trunk/src/(wp-admin|wp-includes)/**/*.css --format=json</pre>
+			<p>
+				These colors were pulled from WordPress using
+				<a href="https://github.com/ryelle/css-audit"
+					>the css-audit tool,</a
+				>
+				and pulling out the list of all colors.
+			</p>
+			<pre>
+yarn run css-audit --colors wordpress-trunk/src/(wp-admin|wp-includes)/**/*.css --format=json</pre
+			>
 		</div>
 
 		<div id="container"></div>
