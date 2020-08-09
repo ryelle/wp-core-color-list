@@ -1,13 +1,15 @@
-import allColors from './utils/colors.json';
-import colors from './core-colors.json';
-import getClosestColor from './utils/get-closest-color';
+/**
+ * Internal dependencies
+ */
+import { newBrandColors as colorList, coreColors } from './colors';
+import { getClosestColor, getColorTitle } from './utils';
 
+// Styles
 import './style.css';
 
 const colorMap = {};
-
-colors.forEach( ( color ) => {
-	const mappedColor = getClosestColor( color );
+coreColors.forEach( ( color ) => {
+	const mappedColor = getClosestColor( color, colorList );
 	if ( colorMap.hasOwnProperty( mappedColor ) ) {
 		colorMap[ mappedColor ].push( color );
 		return;
@@ -15,23 +17,13 @@ colors.forEach( ( color ) => {
 	colorMap[ mappedColor ] = [ color ];
 } );
 
-function getColorTitle( color ) {
-	const allColorsEntries = Object.entries( allColors );
-	const [ name ] = allColorsEntries.find(
-		( [ name, value ] ) => color === value
-	);
-	return name;
-}
-
 const nodes = [];
-Object.values( allColors ).forEach( ( coreColor ) => {
+Object.values( colorList ).forEach( ( coreColor ) => {
 	if ( ! colorMap.hasOwnProperty( coreColor ) ) {
 		return;
 	}
 	const title = document.createElement( 'h2' );
-	title.innerHTML = getColorTitle( coreColor )
-		.replace( /-/g, ' ' )
-		.replace( 'wp', 'WP' );
+	title.innerHTML = getColorTitle( coreColor, colorList );
 	nodes.push( title );
 
 	const node = document.createElement( 'div' );
