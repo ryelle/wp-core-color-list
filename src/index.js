@@ -8,24 +8,21 @@ import { getClosestColor, getColorTitle } from './utils';
 import './style.css';
 
 const colorMap = {};
+const outliers = [];
 coreColors.forEach( ( color ) => {
-	const mappedColor = getClosestColor( color, colorList );
-	if ( colorMap.hasOwnProperty( mappedColor ) ) {
-		colorMap[ mappedColor ].push( color );
-		return;
+	const [ mappedColor, diff ] = getClosestColor( color, colorList, true );
+	if ( diff > 25 ) {
+		outliers.push( color );
+	} else {
+		if ( colorMap.hasOwnProperty( mappedColor ) ) {
+			colorMap[ mappedColor ].push( color );
+			return;
+		}
+		colorMap[ mappedColor ] = [ color ];
 	}
-	colorMap[ mappedColor ] = [ color ];
 } );
 
-const nodes = [];
-Object.values( colorList ).forEach( ( coreColor ) => {
-	if ( ! colorMap.hasOwnProperty( coreColor ) ) {
-		return;
-	}
-	const title = document.createElement( 'h2' );
-	title.innerHTML = getColorTitle( coreColor, colorList );
-	nodes.push( title );
-
+function getColorRowNode( coreColor, matches ) {
 	const node = document.createElement( 'div' );
 	node.className = 'color-row';
 
@@ -35,7 +32,7 @@ Object.values( colorList ).forEach( ( coreColor ) => {
 	chip.style.cssText = `background-color: ${ coreColor }`;
 
 	const group = document.createElement( 'div' );
-	colorMap[ coreColor ].forEach( ( color ) => {
+	matches.forEach( ( color ) => {
 		const item = document.createElement( 'span' );
 		item.className = 'color-chip';
 		item.style.cssText = `background-color: ${ color }`;
@@ -46,9 +43,30 @@ Object.values( colorList ).forEach( ( coreColor ) => {
 
 	node.appendChild( chip );
 	node.appendChild( group );
+	return node;
+}
+
+const nodes = [];
+Object.values( colorList ).forEach( ( coreColor ) => {
+	if ( ! colorMap.hasOwnProperty( coreColor ) ) {
+		return;
+	}
+	const title = document.createElement( 'h2' );
+	title.innerHTML = getColorTitle( coreColor, colorList );
+	nodes.push( title );
+
+	const node = getColorRowNode( coreColor, colorMap[ coreColor ] );
 
 	nodes.push( node );
 } );
+
+console.log( outliers );
+const title = document.createElement( 'h2' );
+title.innerHTML = 'Outliers';
+nodes.push( title );
+
+const node = getColorRowNode( '', outliers );
+nodes.push( node );
 
 const container = document.getElementById( 'container' );
 nodes.forEach( ( n ) => container.appendChild( n ) );

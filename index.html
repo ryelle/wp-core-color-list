@@ -7,17 +7,14 @@
 	</head>
 	<body>
 		<h1>WordPress Core color groupings</h1>
-		<div>
+		<div style="max-width: 48rem;">
 			<p>
-				These colors were pulled from WordPress using
-				<a href="https://github.com/ryelle/css-audit"
-					>the css-audit tool,</a
-				>
-				and pulling out the list of all colors.
+				A list of all colors in WordPress CSS, matched against a set of <a href="https://make.wordpress.org/design/handbook/design-guide/foundations/colors/">"brand colors."</a> The distance between each color is measured, and the CSS color is matched to the closest brand color. This uses <code>Lab</code> to calculate <a href="https://en.wikipedia.org/wiki/Color_difference#CIE76">color difference.</a> There is a distance cutoff, some colors are far away from all provied brand colors. These are listed at the end of the page, under "outliers."
 			</p>
-			<pre>
-yarn run css-audit --colors wordpress-trunk/src/(wp-admin|wp-includes)/**/*.css --format=json</pre
-			>
+			<p>
+				These colors were extracted from WordPress using <a href="https://github.com/ryelle/css-audit">the css-audit tool.</a>
+			</p>
+			<pre>yarn run css-audit --colors wordpress-trunk/src/(wp-admin|wp-includes)/**/*.css --format=json</pre>
 		</div>
 
 		<div id="container"></div>
