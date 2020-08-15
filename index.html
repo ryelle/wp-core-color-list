@@ -9,12 +9,9 @@
 		<h1>WordPress Core color groupings</h1>
 		<div style="max-width: 48rem;">
 			<p>
-				A list of all colors in WordPress CSS, matched against a set of <a href="https://make.wordpress.org/design/handbook/design-guide/foundations/colors/">"brand colors."</a> The distance between each color is measured, and the CSS color is matched to the closest brand color. This uses <code>Lab</code> to calculate <a href="https://en.wikipedia.org/wiki/Color_difference#CIE76">color difference.</a> There is a distance cutoff, some colors are far away from all provied brand colors. These are listed at the end of the page, under "outliers."
+				This project takes a list of color vales extracted from WordPress 5.5, and matches those colors against a given <a href="https://make.wordpress.org/design/2019/11/26/proposal-a-new-color-palette-for-wordpress/">palette of brand colors.</a> The <a href="https://en.wikipedia.org/wiki/Color_difference#CIE76">distance between each color</a> is measured, and the color is matched to the closest brand color. If a given color is too "far away" from any palette color, it's set aside, and all unmatched colors are shown at the end of the page.
 			</p>
-			<p>
-				These colors were extracted from WordPress using <a href="https://github.com/ryelle/css-audit">the css-audit tool.</a>
-			</p>
-			<pre>yarn run css-audit --colors wordpress-trunk/src/(wp-admin|wp-includes)/**/*.css --format=json</pre>
+			<p><a href="https://github.com/ryelle/wp-core-color-list/">Go back to the GitHub repo</a></p>
 		</div>
 
 		<div id="container"></div>
