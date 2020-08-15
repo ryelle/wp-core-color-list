@@ -3,8 +3,6 @@ body {
 	line-height: 1.4;
 }
 
-h1, h2 {}
-
 h2 {
 	text-transform: capitalize;
 }
@@ -29,6 +27,8 @@ h2 {
 }
 
 .color-title {
+	min-width: 5em;
+	font-size: 1.2rem;
 	align-self: stretch;
 	margin-right: 0.5rem;
 }

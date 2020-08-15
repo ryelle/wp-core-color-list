@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import { mostReadable } from 'tinycolor2';
+
+/**
  * Internal dependencies
  */
 import { newBrandColors as colorList, coreColors } from './colors';
@@ -29,7 +34,11 @@ function getColorRowNode( coreColor, matches ) {
 	const chip = document.createElement( 'span' );
 	chip.className = 'color-chip color-title';
 	chip.innerHTML = coreColor;
-	chip.style.cssText = `background-color: ${ coreColor }`;
+	const textColor = mostReadable( coreColor, [
+		'white',
+		'black',
+	] ).toHexString();
+	chip.style.cssText = `background-color: ${ coreColor }; color: ${ textColor }`;
 
 	const group = document.createElement( 'div' );
 	matches.forEach( ( color ) => {
@@ -60,13 +69,27 @@ Object.values( colorList ).forEach( ( coreColor ) => {
 	nodes.push( node );
 } );
 
-console.log( outliers );
-const title = document.createElement( 'h2' );
-title.innerHTML = 'Outliers';
-nodes.push( title );
+if ( outliers.length ) {
+	const title = document.createElement( 'h2' );
+	title.innerHTML = 'Unmatched Colors';
+	nodes.push( title );
 
-const node = getColorRowNode( '', outliers );
-nodes.push( node );
+	const group = document.createElement( 'div' );
+	outliers.forEach( ( color ) => {
+		const item = document.createElement( 'span' );
+		item.className = 'color-chip';
+		const textColor = mostReadable( color, [
+			'white',
+			'black',
+		] ).toHexString();
+		item.style.cssText = `background-color: ${ color }; color: ${ textColor }`;
+		item.innerHTML = color;
+
+		group.appendChild( item );
+	} );
+
+	nodes.push( group );
+}
 
 const container = document.getElementById( 'container' );
 nodes.forEach( ( n ) => container.appendChild( n ) );
