@@ -12,17 +12,21 @@
     "format:js": "wp-scripts format-js",
     "lint:js": "wp-scripts lint-js",
     "packages-update": "wp-scripts packages-update",
-    "test:unit": "wp-scripts test-unit-js"
+    "test:unit": "wp-scripts test-unit-js",
+    "postcss": "postcss --config postcss"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@wordpress/scripts": "^12.1.1"
-  },
-  "dependencies": {
+    "@wordpress/prettier-config": "^0.3.0",
+    "@wordpress/scripts": "^12.1.1",
     "color-convert": "^2.0.1",
+    "postcss": "^7.0.32",
+    "postcss-cli": "^7.1.1",
+    "postcss-values-parser": "^3.2.1",
     "tinycolor2": "^1.4.1"
   },
+  "prettier": "@wordpress/prettier-config",
   "eslintConfig": {
     "extends": "plugin:@wordpress/eslint-plugin/recommended",
     "root": true,
