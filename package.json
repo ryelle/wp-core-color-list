@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "wp-scripts start",
-    "build": "wp-scripts build",
+    "start:app": "wp-scripts start index=./src/index.js --output-path=build/app",
+    "build:app": "wp-scripts build index=./src/index.js --output-path=build/app",
+    "start:lib": "wp-scripts start lib=./src/lib.js --output-library-target=commonjs --output-path=build/lib",
+    "build:lib": "wp-scripts build lib=./src/lib.js --output-library-target=commonjs --output-path=build/lib",
+    "build": "npm run build:lib && npm run build:app",
     "format:js": "wp-scripts format-js",
     "lint:js": "wp-scripts lint-js",
     "packages-update": "wp-scripts packages-update",
