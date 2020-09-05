@@ -13,6 +13,17 @@ const { getClosestColor } = require( '../build/lib/lib.js' );
 module.exports = postcss.plugin( 'color-match', function ( options ) {
 	const colorList = options.colors || {};
 
+	function getReplacementColor( color ) {
+		const newColor = getClosestColor( color, colorList );
+
+		const alpha = tinycolor( color ).getAlpha();
+		if ( alpha !== 1 ) {
+			const newColorWithAlpha = tinycolor( newColor ).setAlpha( alpha );
+			return newColorWithAlpha.toString();
+		}
+		return newColor.toString();
+	}
+
 	return function ( root ) {
 		// No colors passed in.
 		if ( ! Object.values( colorList ).length ) {
@@ -34,13 +45,17 @@ module.exports = postcss.plugin( 'color-match', function ( options ) {
 						if ( ! node.isColor ) {
 							return;
 						}
-						const color = node.value;
-						// @todo transparent colors need special handling.
-						if ( tinycolor( color ).getAlpha() !== 1 ) {
+						node.value = getReplacementColor( node.value );
+						hasNewColor = true;
+					} );
+
+					valueAst.walkFuncs( ( node ) => {
+						if ( ! node.isColor ) {
 							return;
 						}
-						const newColor = getClosestColor( color, colorList );
-						node.value = newColor;
+						const newColor = getReplacementColor( node.toString() );
+						const newNode = parse( newColor ).first;
+						node.replaceWith( newNode );
 						hasNewColor = true;
 					} );
 

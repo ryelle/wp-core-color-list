@@ -48,6 +48,24 @@ describe( 'Color Match PostCSS Plugin', () => {
 		expect( output ).toEqual( 'p { color: #f00; }' );
 	} );
 
+	it( 'should replace rgb color values', async () => {
+		const input = 'p { color: rgb(255, 0, 0); }';
+		const output = await run( input, { colors } );
+		expect( output ).toEqual( 'p { color: #f00; }' );
+	} );
+
+	it( 'should replace hsl color values', async () => {
+		const input = 'p { color: hsl(210, 100, 50); }';
+		const output = await run( input, { colors } );
+		expect( output ).toEqual( 'p { color: #00f; }' );
+	} );
+
+	it( 'should replace transparent colors with transparent values', async () => {
+		const input = 'p { color: rgba( 0, 200, 0, 0.5 ); }';
+		const output = await run( input, { colors } );
+		expect( output ).toEqual( 'p { color: rgba(0, 255, 0, 0.5); }' );
+	} );
+
 	it( 'should ignore color-like values that are not colors', async () => {
 		const input = 'p { background-image: url( logo-red.png ); }';
 		const output = await run( input, { colors } );
